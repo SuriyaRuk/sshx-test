@@ -5,11 +5,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # ... other steps ...
 
-      - run: curl -sSf https://sshx.io/get 
+      - run: curl -sSf https://sshx.io/get | sshx &
       #      ^
       #      └ This will open a remote terminal session and print the URL. It
       #        should take under a second.
