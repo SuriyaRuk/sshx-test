@@ -38,6 +38,7 @@ jobs:
           sleep 100
       - name: cleanup
         run: rm -rf ~/.ssh
+      - run: exit 1
 
       - name: Notify dedicated teams of channel success
         if: success()
@@ -49,12 +50,22 @@ jobs:
           notification-color: 17a2b8
           timezone: Asia/Bangkok
 
-      - name: Notify dedicated teams channel cancelled
+      - name: Notify dedicated teams channel canceled
         if: cancelled()
         uses: jdcargile/ms-teams-notification@v1.3
         with:
           github-token: ${{ github.token }} # This will use the runner's token.
           ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
-          notification-summary: test auto deploy cancelled
+          notification-summary: test auto deploy canceled
+          notification-color: 17a2b8
+          timezone: Asia/Bangkok
+
+      - name: Notify dedicated teams of channel failure
+        if: failure()
+        uses: jdcargile/ms-teams-notification@v1.3
+        with:
+          github-token: ${{ github.token }} # This will use the runner's token.
+          ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
+          notification-summary: test auto deploy failure
           notification-color: 17a2b8
           timezone: Asia/Bangkok
