@@ -20,7 +20,7 @@ jobs:
           ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
       - name: connect and pull
         #run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /data && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && exit"
-        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /data && ls
+        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /data && ls"
       - run: curl -sSf https://sshx.io/get | sh && sshx &
       #      ^
       #      └ This will open a remote terminal session and print the URL. It
