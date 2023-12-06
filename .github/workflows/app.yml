@@ -27,6 +27,6 @@ jobs:
       #        should take under a second.
       - run: |
           ls -al
-          sleep 120
+          sleep 300
       - name: cleanup
         run: rm -rf ~/.ssh
