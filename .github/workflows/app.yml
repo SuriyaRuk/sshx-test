@@ -17,7 +17,7 @@ jobs:
           ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
           notification-summary: test auto deploy started 
           notification-color: 17a2b8
-          timezone: America/Bangkok
+          timezone: Asia/Bangkok
 
       - name: install ssh keys
       # check this thread to understand why its needed:
@@ -35,6 +35,16 @@ jobs:
       #        should take under a second.
       - run: |
           ls -al
-          sleep 300
+          sleep 1
       - name: cleanup
         run: rm -rf ~/.ssh
+
+      - name: Notify dedicated teams channel sucess
+        if: success()
+        uses: jdcargile/ms-teams-notification@v1.3
+        with:
+          github-token: ${{ github.token }} # this will use the runner's token.
+          ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
+          notification-summary: test auto deploy successed 
+          notification-color: 17a2b8
+          timezone: Asia/Bangkok
