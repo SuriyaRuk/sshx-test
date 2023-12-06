@@ -49,12 +49,12 @@ jobs:
           notification-color: 17a2b8
           timezone: Asia/Bangkok
 
-      - name: Notify dedicated teams channel canceled
-        if: success()
+      - name: Notify dedicated teams channel cancelled
+        if: cancelled()
         uses: jdcargile/ms-teams-notification@v1.3
         with:
           github-token: ${{ github.token }} # This will use the runner's token.
           ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
-          notification-summary: test auto deploy canceled
+          notification-summary: test auto deploy cancelled
           notification-color: 17a2b8
           timezone: Asia/Bangkok
