@@ -1,0 +1,19 @@
+name: deploy-app-a
+on: 
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: install ssh keys
+      # check this thread to understand why its needed:
+      # https://stackoverflow.com/a/70447517
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_ed25519
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+      - name: connect and pull
+        #run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /data && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && exit"
+        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /data && ls"
